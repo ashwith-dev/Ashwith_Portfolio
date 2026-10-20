@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────── */
+:root {
+  --ink: #0b0c0e;
+  --paper: #f2f3f5;
+  --accent: #3d5afe;
+  --on-accent: #ffffff;
+  --muted: #5b5f66;
+  --border: rgba(11, 12, 14, 0.1);
+
+  /* Font variables (set by next/font) */
+  --font-geist: var(--font-geist-sans, "Geist", ui-sans-serif, system-ui, sans-serif);
+  --font-mono: var(--font-geist-mono, "Geist Mono", ui-monospace, monospace);
+  /* --font-doto is set directly by next/font in layout.tsx */
+}
+
+/* ─── Dark mode ─────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ink: #f2f3f5;
+    --paper: #0b0c0e;
+    --muted: #9ba1aa;
+    --border: rgba(242, 243, 245, 0.1);
+  }
+}
+:root[data-theme="dark"] {
+  --ink: #f2f3f5;
+  --paper: #0b0c0e;
+  --muted: #9ba1aa;
+  --border: rgba(242, 243, 245, 0.1);
+}
+
+/* ─── Base ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-geist);
+  line-height: 1.6;
+  min-height: 100svh;
+}
+
+/* ─── Selection ─────────────────────────────────────────── */
+::selection {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
+/* ─── Focus ring ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ─── Smooth scroll (Lenis overrides) ───────────────────── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+/* ─── Utility ──────────────────────────────────────────── */
+.font-doto { font-family: var(--font-doto); }
+.font-mono  { font-family: var(--font-mono); }
+
+/* Projects: stacked cards below 768px (the pinned horizontal scroll is desktop-only) */
+@media (max-width: 767px) {
+  .projects-track { flex-direction: column; width: auto !important; }
+  .projects-track > a { width: auto !important; border-left: none !important; padding: 0 0 2.5rem !important; }
+  .editorial-split > * { grid-column: 1 / -1 !important; }
+}
